@@ -41,11 +41,18 @@ function compile() {
 
     (
         cd "$build_dir"
-        git clone --single-branch ${tesseract_version} --depth 1 https://github.com/tesseract-ocr/tessdata
+        if [ -d tessdata ]; then
+            cd tessdata
+            git fetch
+            git rebase
+        else
+            git clone --single-branch --branch ${tesseract_version} --depth 1 https://github.com/tesseract-ocr/tessdata tessdata
+            cd tessdata
+        fi
         tessdata="${output_dir}/share/tessdata/"
         mkdir -p "$tessdata"
         for lang in "${tesseract_languages[@]}"; do
-            cp -v "tessdata/${lang}"* "$tessdata"
+            cp -v "${lang}"* "$tessdata"
         done
     )
     # Strip
