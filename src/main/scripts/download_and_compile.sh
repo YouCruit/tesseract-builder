@@ -46,7 +46,7 @@ function compile() {
             git fetch
             git rebase
         else
-            if [[ "${TESSDATA_LOCAL_MIRROR+x}" != "x" ]]; then
+            if [[ "${TESSDATA_LOCAL_MIRROR+x}" != "" ]]; then
                 git clone --branch ${tesseract_version} "${TESSDATA_LOCAL_MIRROR}" tessdata
             else
                 git clone --single-branch --branch ${tesseract_version} --depth 1 https://github.com/tesseract-ocr/tessdata tessdata
