@@ -2,7 +2,7 @@
 
 leptonica_version="1.72"
 tesseract_version="3.04.00"
-tesseract_languages=(swe eng dan)
+tesseract_languages=(swe eng dan nor)
 build_dir="$base_dir/build"
 output_dir="$base_dir/output"
 artifact="$base_dir/tesseract_${tesseract_version}.tgz"
