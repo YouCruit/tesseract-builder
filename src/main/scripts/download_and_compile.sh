@@ -44,7 +44,7 @@ function compile() {
         if [ -d tessdata ]; then
             cd tessdata
             git fetch
-            git rebase
+            git checkout --detach "${tesseract_version}"
         else
             if [[ "${TESSDATA_LOCAL_MIRROR+x}" != "" ]]; then
                 git clone --branch ${tesseract_version} "${TESSDATA_LOCAL_MIRROR}" tessdata
@@ -60,7 +60,7 @@ function compile() {
         done
     )
     # Strip
-    strip "$output_dir/lib/"*.so "$output_dir/bin/"*
+    strip "$output_dir/bin/"*
     rm -rf "$output_dir/lib/"*.a "$output_dir/lib/"*.la "$output_dir/"lib/pkgconfig/ "$output_dir/"include "$output_dir/"share/man
 }
 
