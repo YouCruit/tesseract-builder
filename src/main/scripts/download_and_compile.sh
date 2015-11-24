@@ -18,9 +18,9 @@ function compile() {
         cd "$build_dir"
         wget -O- -nv http://www.leptonica.org/source/leptonica-${leptonica_version}.tar.gz | tar zx
         cd leptonica-${leptonica_version}
-        ./configure --prefix="${output_dir}"
+        ./configure --prefix="/app/target/tesseract"
         make -j4
-        make install
+        make install prefix="${output_dir}"
     )
     fi
 
@@ -33,9 +33,9 @@ function compile() {
         git clone --single-branch --branch ${tesseract_version} --depth 1 https://github.com/tesseract-ocr/tesseract tesseract
         cd tesseract
         export LIBLEPT_HEADERSDIR="${output_dir}/include"
-        ./configure --prefix="${output_dir}"
+        ./configure --prefix="/app/target/tesseract"
         make -j4
-        make install
+        make install prefix="${output_dir}"
     )
     fi
 
