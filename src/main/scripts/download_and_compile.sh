@@ -40,9 +40,12 @@ function compile() {
     fi
 
     (
-        cd "$output_dir"
+        cd "$build_dir"
+        git clone --single-branch ${tesseract_version} --depth 1 https://github.com/tesseract-ocr/tessdata
+        tessdata="${output_dir}/share/tessdata/"
+        mkdir -p "$tessdata"
         for lang in "${tesseract_languages[@]}"; do
-            curl "https://tesseract-ocr.googlecode.com/files/tesseract-ocr-3.02.${lang}.tar.gz" | tar zx
+            cp -v "tessdata/${lang}"* "$tessdata"
         done
     )
     # Strip
