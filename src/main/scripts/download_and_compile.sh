@@ -63,7 +63,7 @@ function compile() {
     ldd "$output_dir/bin/tesseract" | awk '/=> \/usr\/lib/ {print $3}' | while read A; do cp "$A" "$output_dir/lib/"
     # Strip
     strip "$output_dir/lib/"*.so "$output_dir/bin/"*
-    rm -rf "$output_dir/lib/"*.a "$output_dir/lib/"*.la "$output_dir/"lib/pkgconfig/ "$output_dir/"include "$output_dir/"share/man
+    rm -rf "$output_dir/lib/"*.a "$output_dir/lib/"*.la "$output_dir/lib/pkgconfig/" "$output_dir/include" "$output_dir/share/man"
 }
 
 
