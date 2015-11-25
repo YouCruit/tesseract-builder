@@ -18,7 +18,7 @@ function compile() {
         cd "$build_dir"
         wget -O- -nv http://www.leptonica.org/source/leptonica-${leptonica_version}.tar.gz | tar zx
         cd leptonica-${leptonica_version}
-        ./configure --prefix="/app/target/tesseract"
+        ./configure --prefix="/app/target/tesseract" --with-zlib --with-libpng --with-jpeg --with-giflib --with-libtiff --with-libwebp --with-libopenjpeg
         make -j4
         make install prefix="${output_dir}"
     )
@@ -59,8 +59,10 @@ function compile() {
             cp -v "${lang}"* "$tessdata"
         done
     )
+    # Copy needed libs not included in heroku
+    ldd "$output_dir/bin/tesseract" | awk '/=> \/usr\/lib/ {print $3}' | while read A; do cp "$A" "$output_dir/lib/"
     # Strip
-    strip "$output_dir/bin/"*
+    strip "$output_dir/lib/"*.so "$output_dir/bin/"*
     rm -rf "$output_dir/lib/"*.a "$output_dir/lib/"*.la "$output_dir/"lib/pkgconfig/ "$output_dir/"include "$output_dir/"share/man
 }
 
