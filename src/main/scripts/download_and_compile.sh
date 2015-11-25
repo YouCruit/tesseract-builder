@@ -60,7 +60,7 @@ function compile() {
         done
     )
     # Copy needed libs not included in heroku
-    ldd "$output_dir/bin/tesseract" | awk '/=> \/usr\/lib/ {print $3}' | while read A; do cp "$A" "$output_dir/lib/"
+    ldd "$output_dir/bin/tesseract" | awk '/=> \/usr\/lib/ {print $3}' | while read A; do cp "$A" "$output_dir/lib/"; done
     # Strip
     strip "$output_dir/lib/"*.so "$output_dir/bin/"*
     rm -rf "$output_dir/lib/"*.a "$output_dir/lib/"*.la "$output_dir/lib/pkgconfig/" "$output_dir/include" "$output_dir/share/man"
